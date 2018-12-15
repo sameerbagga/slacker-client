@@ -1,0 +1,106 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+html {
+  height: 80%;
+  width : 80%;
+}
+
+body {
+  border : 5px Solid #000000;
+  height : 70%;
+  width : 80%;
+  color : #0000ff;
+}
+
+#rcorners {
+  width : 100%;
+  margin : 2%;
+  border-radius: 25px;
+}
+
+div.image {
+  width : 49%;
+  float : left;
+  padding-top: 6%;
+}
+
+div.text {
+  padding-left : 4%;
+  width : 47%;
+  float : right;
+  padding-top: 6%;
+}
+
+#hd1 {
+  font-size : 40px;
+  margin-bottom : 5px;
+  margin-top : 10%;
+}
+
+#hd2 {
+  margin-top : 0px;
+  font-size : 30px;
+  margin-bottom : 5px;
+}
+
+#hd3 {
+  margin-top : 0px;
+  font-size : 18px;
+  color : #000000;
+}
+
+.banner {
+  margin-top : 5%;
+}
+
+#foot {
+  font-size : 10px;
+  margin-top : 10%;
+  float : right;
+  margin-right : 1%;
+}
+
+
+@media only screen and (max-width: 768px) {
+	body {
+        	height : 100%;
+	}
+	.image #rcorners {
+		width : 80%;
+		display: block; 
+	}
+
+	div.text {
+		display: inline-block;
+    width: 100%;
+    padding : 1rem;
+	}
+	div.image {
+		float : none;
+		display: inline-block;
+		width: 100%;
+		padding:1rem;
+	}			
+	h1 {
+		margin : 0.5rem;
+		font-size: 3rem;
+  }
+  
+  #username {
+    width : 60%;
+    margin-right : 40%;
+  }
+
+  #password {
+    width : 60%;
+    margin-right : 40%;
+  }
+
+  #login {
+    margin-left : 30%;
+  }
+
+}
