@@ -13,9 +13,14 @@
       <h1 id = "hd1"> #stacker </h1>
       <p id = "hd2"> Collaboration Made Fun </p>
       <p id = "hd3"> Collaborate. Do more. Make things happen. </p>
-      <p> <span> <input type = "text" id = "username" placeholder = "username" /> </span>
-        <span> <input type = "password" id = "password" placeholder = "password" /> </span> <a href = "channels.html" id = "login"> <button> Login </button> </a> </p>
-      <p id = "foot"> *Press Login button to view Channels Page.</p>
+      <div>
+        <form id="message-form" method="GET" action="channels.html">
+          <input type = "text" id = "username" placeholder = "username" />
+          <input type = "password" id = "password" placeholder = "password" />
+          <input type="submit" id="login" value="login" />
+          <p id = "foot"> *Press Login button to view Channels Page.</p>
+        </form>
+      </div>
     </div>
   </body>
 </html>

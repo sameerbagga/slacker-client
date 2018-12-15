@@ -1,45 +1,45 @@
-var messages =[  
-	{  
-	   "user":{  
-		  "name":"Kat",
-		  "image":"https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=25"
-	   },
-	   "message":{  
-		  "text":"I'm changing the due date on the landing page because I need more time. The designs look great!",
-		  "date":1534885670000
-	   }
-	},
-	{  
-	   "user":{  
-		  "name":"Ron",
-		  "image":"https://images.pexels.com/photos/1498335/pexels-photo-1498335.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=25"
-	   },
-	   "message":{  
-		  "text":"I'm changing the due date on the landing page because I need more time. The designs look great!",
-		  "date":1534485670000
-	   }
-	},
-	{  
-	   "user":{  
-		  "name":"Benny",
-		  "image":"https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=25"
-	   },
-	   "message":{  
-		  "text":"It is great to finally see this project complete",
-		  "date":1534785670000
-	   }
-	},
-	{  
-	   "user":{  
-		  "name":"Betty",
-		  "image":"https://images.pexels.com/photos/1498778/pexels-photo-1498778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=25"
-	   },
-	   "message":{  
-		  "text":"Next time I will be able to see things better",
-		  "date":1537564070000
-	   }
-	}
- ]
+var messages = [
+ {
+ "user": {
+ "name": "Kat",
+ "image": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=25"
+ },
+ "message": {
+ "text": "I'm changing the due date on the landing page because I need more time. The designs look great!",
+ "date": 1534885670000
+ }
+ },
+ {
+ "user": {
+ "name": "Ron",
+ "image": "https://images.pexels.com/photos/1498335/pexels-photo-1498335.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=25"
+ },
+ "message": {
+ "text": "I'm changing the due date on the landing page because I need more time. The designs look great!",
+ "date": 1534485670000
+ }
+},
+ {
+ "user": {
+ "name": "Benny",
+ "image": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=25"
+ },
+ "message": {
+ "text": "It is great to finally see this project complete",
+ "date": 1534785670000
+ }
+ },
+ {
+	 "user": {
+	 "name": "Betty",
+	 "image": "https://images.pexels.com/photos/1498778/pexels-photo-1498778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=25"
+	 },
+	 "message": {
+	 "text": "Next time I will be able to see things better",
+	 "date": 1537564070000
+	 }
+ }
+]
 
 			function createArticle( $message ) {
 				let $article = $("<article>").addClass( "message-row");
@@ -48,7 +48,7 @@ var messages =[
 
 				let $message_author = $("<span>").addClass( "message-author").text( $message.user.name );
 
-				let $dateMessage = new Date( $message.message.date );
+				let $dateMessage = new Date( Number.parseInt( $message.message.date ) );
 				let $dateTimeOnly = $dateMessage.toLocaleTimeString( );
 				let $dateDateOnly = $dateMessage.toLocaleDateString( );
 
@@ -66,7 +66,28 @@ var messages =[
 				return $article;
 			}
 
+			function loadMessages( ) {
+				// not expecting use of promises or for them to understand them at least.
+				$.ajax('/messages', { method: 'GET', dataType: "json" })
+				.then(function (result) {
+				  renderMessages(result);
+				});
+			}
 
+			function renderMessages( messages ) {
+        		console.log ("Data: " ,  messages );
+        		messages.forEach( ( message ) => {
+        			let $article = createArticle( message );
+        			$("#messages-list").append( $article );
+        		});
+        	}	
+
+			function submitMessage( message ) {
+			    $.post("/messages/new" , message , function(data, status){
+			        console.log("Data: " + data + "\nStatus: " + status);
+			    });
+
+			}
 
 
 
@@ -82,23 +103,19 @@ var messages =[
 						 },
 						 "message": {
 						 "text": event.target.value,
-						 "date": new Date()
+						 "date": ( new Date( ) ).getTime( )
 						 }
 					 };		
 						let $article = createArticle( message );
 	        			$("#messages-list").prepend( $article );	
 	        			event.target.value = "";
 						console.log( message );			
-
+						submitMessage( message );
 					}
 				 });				
 
-        		console.log ("Data: " ,  messages );
-        		messages.forEach( ( message ) => {
-        			let $article = createArticle( message );
-        			$("#messages-list").append( $article );
+				loadMessages( );
 
-        		});
 	    	});
 
 
